@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freestyle World | Keiver Ortiz</title>
+    <style>
+        /* Variables de color */
+        :root {
+            --fondo-oscuro: rgba(10, 10, 10, 0.85);
+            --morado-neon: #a020f0;
+            --morado-brillo: #cf91ff;
+            --blanco: #ffffff;
+            --gris-suave: #b3b3b3;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--blanco);
+            /* Imagen de fondo (puedes cambiar el URL por una de un evento de Red Bull) */
+            background: url('https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Capa negra transparente */
+        .overlay {
+            background-color: var(--fondo-oscuro);
+            min-height: 100vh;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1, h2 {
+            color: var(--morado-neon);
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--morado-neon);
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.6;
+            color: var(--gris-suave);
+            font-size: 1.1rem;
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding: 20px;
+            border-left: 4px solid var(--morado-neon);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0 15px 15px 0;
+        }
+
+        /* Lista de artistas */
+        .artistas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .artista-card {
+            background: rgba(160, 32, 240, 0.1);
+            padding: 15px;
+            border: 1px solid var(--morado-neon);
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .artista-card:hover {
+            box-shadow: 0 0 20px var(--morado-neon);
+            transform: translateY(-5px);
+        }
+
+        /* Generador de Rimas */
+        .generador-box {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px dashed var(--morado-neon);
+        }
+
+        #palabra-display {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: var(--blanco);
+            min-height: 70px;
+        }
+
+        button {
+            background: var(--morado-neon);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: var(--morado-brillo);
+            box-shadow: 0 0 15px var(--morado-brillo);
+        }
+
+        /* Créditos */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .creditos-nombre {
+            color: var(--morado-neon);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay">
+    <div class="container">
+        
+        <header>
+            <h1>El Arte de la Improvisación</h1>
+        </header>
+
+        <section>
+            <h2>Introducción</h2>
+            <p>El Freestyle no es solo hablar rápido; es la habilidad de crear rimas en tiempo real sobre una base instrumental. Es una mezcla de agilidad mental, vocabulario y ritmo. Lo que empezó en las calles de Nueva York se ha convertido hoy en una disciplina competitiva global.</p>
+        </section>
+
+        <section>
+            <h2>¿Cómo funciona?</h2>
+            <p>En una batalla o sesión de freestyle, el MC (rapero) debe conectar ideas de forma coherente mientras sigue el "tempo" de la música. Se evalúa el ingenio, las estructuras métricas y el "punchline" (el remate final que deja a todos con la boca abierta).</p>
+        </section>
+
+        <section>
+            <h2>Exponentes Legendarios</h2>
+            <div class="artistas-grid">
+                <div class="artista-card"><strong>Lokillo</strong><br>El rey de la métrica y el humor.</div>
+                <div class="artista-card"><strong>Aczino</strong><br>Considerado el mejor de la historia.</div>
+                <div class="artista-card"><strong>Chuty</strong><br>El amo del doble tempo y la lógica.</div>
+                <div class="artista-card"><strong>Wos</strong><br>Energía pura y flow argentino.</div>
+            </div>
+        </section>
+
+        <section class="generador-box">
+            <h2>Entrena tu Freestyle</h2>
+            <p>Presiona el botón y rima con la palabra que aparezca:</p>
+            <div id="palabra-display">¡LISTO?</div>
+            <button onclick="generarPalabra()">NUEVA PALABRA</button>
+        </section>
+
+        <footer>
+            Creado con pasión por <span class="creditos-nombre">Keiver Ortiz</span> | 2026
+        </footer>
+
+    </div>
+</div>
+
+<script>
+    const palabras = [
+        "DESTINO", "CORONA", "FUEGO", "CIUDAD", "RITMO", 
+        "CÓDIGO", "BATALLA", "SUEÑO", "CALLE", "MÉTRICA",
+        "ESTRELLA", "PODER", "SILENCIO", "CAMINO", "VICTORIA"
+    ];
+
+    function generarPalabra() {
+        const display = document.getElementById('palabra-display');
+        const random = Math.floor(Math.random() * palabras.length);
+        
+        // Efecto rápido de cambio
+        display.style.opacity = 0;
+        setTimeout(() => {
+            display.innerText = palabras[random];
+            display.style.opacity = 1;
+        }, 150);
+    }
+</script>
+
+</body>
+</html>
