@@ -3,193 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freestyle World | Keiver Ortiz</title>
+    <title>Freestyle Terminal | Keiver Ortiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Variables de color */
         :root {
-            --fondo-oscuro: rgba(10, 10, 10, 0.85);
-            --morado-neon: #a020f0;
-            --morado-brillo: #cf91ff;
+            --morado-principal: #a020f0;
+            --morado-brillante: #d670ff;
+            --negro-glass: rgba(0, 0, 0, 0.82);
             --blanco: #ffffff;
-            --gris-suave: #b3b3b3;
         }
 
-        body {
+        * {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--blanco);
-            /* Imagen de fondo (puedes cambiar el URL por una de un evento de Red Bull) */
-            background: url('https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* Capa negra transparente */
-        .overlay {
-            background-color: var(--fondo-oscuro);
-            min-height: 100vh;
-            padding: 40px 20px;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        .container {
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: url('https://imagenes2.eltiempo.com/files/og_thumbnail/files/fp/uploads/2025/12/29/6952a528689df.r_d.1548-445-0.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--blanco);
+            overflow-x: hidden;
+        }
+
+        /* Capa de fondo para oscurecer un poco la imagen general */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        /* Estilo de Secciones por Bloques */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            border-bottom: 2px solid rgba(160, 32, 240, 0.3);
+        }
+
+        .glass-card {
+            background: var(--negro-glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(160, 32, 240, 0.5);
+            padding: 40px;
+            border-radius: 20px;
             max-width: 900px;
-            margin: 0 auto;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
         h1, h2 {
-            color: var(--morado-neon);
+            font-family: 'Orbitron', sans-serif;
+            color: var(--morado-brillante);
             text-transform: uppercase;
-            text-shadow: 0 0 10px var(--morado-neon);
+            letter-spacing: 4px;
+            margin-bottom: 20px;
             text-align: center;
+            text-shadow: 0 0 15px var(--morado-principal);
         }
 
+        h1 { font-size: 3.5rem; }
+        
         p {
+            font-size: 1.3rem;
             line-height: 1.6;
-            color: var(--gris-suave);
-            font-size: 1.1rem;
-        }
-
-        section {
-            margin-bottom: 60px;
-            padding: 20px;
-            border-left: 4px solid var(--morado-neon);
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 0 15px 15px 0;
-        }
-
-        /* Lista de artistas */
-        .artistas-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .artista-card {
-            background: rgba(160, 32, 240, 0.1);
-            padding: 15px;
-            border: 1px solid var(--morado-neon);
-            border-radius: 10px;
             text-align: center;
-            transition: 0.3s;
+            color: #e0e0e0;
         }
 
-        .artista-card:hover {
-            box-shadow: 0 0 20px var(--morado-neon);
-            transform: translateY(-5px);
+        /* Bloque Artistas */
+        .artistas-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .card-artista {
+            background: rgba(255,255,255,0.05);
+            border-bottom: 3px solid var(--morado-principal);
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            transition: 0.4s;
+            cursor: default;
+        }
+
+        .card-artista:hover {
+            background: var(--morado-principal);
+            transform: scale(1.1);
         }
 
         /* Generador de Rimas */
-        .generador-box {
+        .rimas-box {
+            background: #000;
+            border: 2px solid var(--morado-principal);
+            padding: 50px;
+            border-radius: 15px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 30px;
-            border-radius: 20px;
-            border: 2px dashed var(--morado-neon);
         }
 
-        #palabra-display {
-            font-size: 3rem;
-            font-weight: bold;
-            margin: 20px 0;
+        #word-box {
+            font-size: 4rem;
+            font-family: 'Orbitron', sans-serif;
+            margin: 30px 0;
+            min-height: 80px;
             color: var(--blanco);
-            min-height: 70px;
         }
 
-        button {
-            background: var(--morado-neon);
+        .btn-rimar {
+            background: var(--morado-principal);
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 50px;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
             cursor: pointer;
+            border-radius: 5px;
             transition: 0.3s;
-            font-weight: bold;
         }
 
-        button:hover {
-            background: var(--morado-brillo);
-            box-shadow: 0 0 15px var(--morado-brillo);
+        .btn-rimar:hover {
+            box-shadow: 0 0 25px var(--morado-brillante);
+            background: var(--morado-brillante);
         }
 
-        /* Créditos */
         footer {
+            padding: 30px;
             text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: black;
+            font-family: 'Orbitron', sans-serif;
         }
 
-        .creditos-nombre {
-            color: var(--morado-neon);
-            font-weight: bold;
+        .nombre-autor {
+            color: var(--morado-brillante);
+            text-decoration: none;
+            border-bottom: 1px solid var(--morado-brillante);
         }
+
+        /* Animación suave al bajar */
+        html { scroll-behavior: smooth; }
+
     </style>
 </head>
 <body>
 
-<div class="overlay">
-    <div class="container">
-        
-        <header>
-            <h1>El Arte de la Improvisación</h1>
-        </header>
+    <section id="inicio">
+        <div class="glass-card">
+            <h1>FREESTYLE</h1>
+            <p>Más que palabras, es una guerra de mentes. El arte de rimar al momento bajo presión, donde cada segundo cuenta y cada palabra es un arma.</p>
+        </div>
+    </section>
 
-        <section>
-            <h2>Introducción</h2>
-            <p>El Freestyle no es solo hablar rápido; es la habilidad de crear rimas en tiempo real sobre una base instrumental. Es una mezcla de agilidad mental, vocabulario y ritmo. Lo que empezó en las calles de Nueva York se ha convertido hoy en una disciplina competitiva global.</p>
-        </section>
+    <section id="resumen">
+        <div class="glass-card">
+            <h2>LA DISCIPLINA</h2>
+            <p>Nacido en las calles, el freestyle ha evolucionado a ligas profesionales como FMS y Red Bull Batalla. Se trata de conectar punchlines, métricas y flow sobre un beat de 4x4. La clave no es solo rimar, es responder con inteligencia.</p>
+        </div>
+    </section>
 
-        <section>
-            <h2>¿Cómo funciona?</h2>
-            <p>En una batalla o sesión de freestyle, el MC (rapero) debe conectar ideas de forma coherente mientras sigue el "tempo" de la música. Se evalúa el ingenio, las estructuras métricas y el "punchline" (el remate final que deja a todos con la boca abierta).</p>
-        </section>
-
-        <section>
-            <h2>Exponentes Legendarios</h2>
-            <div class="artistas-grid">
-                <div class="artista-card"><strong>Lokillo</strong><br>El rey de la métrica y el humor.</div>
-                <div class="artista-card"><strong>Aczino</strong><br>Considerado el mejor de la historia.</div>
-                <div class="artista-card"><strong>Chuty</strong><br>El amo del doble tempo y la lógica.</div>
-                <div class="artista-card"><strong>Wos</strong><br>Energía pura y flow argentino.</div>
+    <section id="artistas">
+        <div class="glass-card">
+            <h2>LEYENDAS DEL MICRO</h2>
+            <div class="artistas-container">
+                <div class="card-artista"><h3>LOKILLO</h3><p>Métrica & Humor</p></div>
+                <div class="card-artista"><h3>ACZINO</h3><p>El GOAT</p></div>
+                <div class="card-artista"><h3>CHUTY</h3><p>La Bestia</p></div>
+                <div class="card-artista"><h3>MECHA</h3><p>Puro Flow</p></div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="generador-box">
-            <h2>Entrena tu Freestyle</h2>
-            <p>Presiona el botón y rima con la palabra que aparezca:</p>
-            <div id="palabra-display">¡LISTO?</div>
-            <button onclick="generarPalabra()">NUEVA PALABRA</button>
-        </section>
+    <section id="generador">
+        <div class="glass-card rimas-box">
+            <h2>TRAINING MODE</h2>
+            <p>Tira tus barras con esta palabra:</p>
+            <div id="word-box">---</div>
+            <button class="btn-rimar" onclick="nuevaPalabra()">SOLTAR BARRA</button>
+        </div>
+    </section>
 
-        <footer>
-            Creado con pasión por <span class="creditos-nombre">Keiver Ortiz</span> | 2026
-        </footer>
+    <footer>
+        DESARROLLADO POR <span class="nombre-autor">KEIVER ORTIZ</span> | 2026
+    </footer>
 
-    </div>
-</div>
+    <script>
+        const lista = ["DINERO", "ESCUELA", "DESTINO", "CALLE", "MÉTRICA", "CÓDIGO", "CIELO", "FUEGO", "SUEÑO", "LIBERTAD", "RESPECT", "FLOW", "SISTEMA", "BATALLA", "CORONA"];
 
-<script>
-    const palabras = [
-        "DESTINO", "CORONA", "FUEGO", "CIUDAD", "RITMO", 
-        "CÓDIGO", "BATALLA", "SUEÑO", "CALLE", "MÉTRICA",
-        "ESTRELLA", "PODER", "SILENCIO", "CAMINO", "VICTORIA"
-    ];
-
-    function generarPalabra() {
-        const display = document.getElementById('palabra-display');
-        const random = Math.floor(Math.random() * palabras.length);
-        
-        // Efecto rápido de cambio
-        display.style.opacity = 0;
-        setTimeout(() => {
-            display.innerText = palabras[random];
-            display.style.opacity = 1;
-        }, 150);
-    }
-</script>
-
+        function nuevaPalabra() {
+            const el = document.getElementById('word-box');
+            const random = Math.floor(Math.random() * lista.length);
+            el.innerText = lista[random];
+            
+            // Sonido de click visual
+            el.style.transform = "scale(1.2)";
+            setTimeout(() => { el.style.transform = "scale(1)"; }, 100);
+        }
+    </script>
 </body>
 </html>
